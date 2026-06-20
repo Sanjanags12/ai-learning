@@ -1,7 +1,6 @@
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
-# Free model — no API key needed!
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Sample sentences
