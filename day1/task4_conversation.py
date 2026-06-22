@@ -44,4 +44,4 @@ while True:
         "content": reply
     })
 
-    print(f"\n🏋️ AI Trainer: {reply}")
+    print(f"\n AI Trainer: {reply}")
