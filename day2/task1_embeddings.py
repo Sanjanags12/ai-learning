@@ -16,7 +16,7 @@ sentences = [
 # Convert text → numbers (embeddings)
 embeddings = model.encode(sentences)
 
-print("✅ Embeddings created!")
+print(" Embeddings created!")
 print(f"Shape: {embeddings.shape}")
 print(f"Each sentence = {embeddings.shape[1]} numbers")
 print(f"\nFirst embedding (first 5 numbers):")

@@ -30,7 +30,7 @@ collection.add(
     ids=[f"doc_{i}" for i in range(len(documents))]
 )
 
-print("✅ Database created with", collection.count(), "documents")
+print(" Database created with", collection.count(), "documents")
 print()
 
 # Query the database
@@ -46,7 +46,7 @@ for query in queries:
         query_embeddings=query_embedding,
         n_results=2
     )
-    print(f"🔍 Query: {query}")
+    print(f" Query: {query}")
     for doc in results['documents'][0]:
         print(f"   → {doc}")
     print()

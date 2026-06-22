@@ -4,7 +4,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 loader = PyPDFLoader("document.pdf")
 pages = loader.load()
 
-print(f"✅ Loaded {len(pages)} pages")
+print(f" Loaded {len(pages)} pages")
 
 # Split into chunks
 splitter = RecursiveCharacterTextSplitter(
@@ -14,7 +14,7 @@ splitter = RecursiveCharacterTextSplitter(
 
 chunks = splitter.split_documents(pages)
 
-print(f"✅ Split into {len(chunks)} chunks")
-print(f"\n📄 First chunk:")
+print(f" Split into {len(chunks)} chunks")
+print(f"\n First chunk:")
 print(chunks[0].page_content)
-print(f"\n📌 Source: Page {chunks[0].metadata['page']}")
+print(f"\n Source: Page {chunks[0].metadata['page']}")

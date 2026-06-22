@@ -65,4 +65,4 @@ Be specific, practical, and encouraging."""
         ]
     )
 
-    print(f"\n🤖 Trainer: {response.choices[0].message.content}")
+    print(f"\n Trainer: {response.choices[0].message.content}")

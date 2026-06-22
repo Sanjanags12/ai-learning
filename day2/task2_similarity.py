@@ -29,11 +29,10 @@ scores = cosine_similarity(query_embedding, kb_embeddings)[0]
 # Get top 3 results
 top_indices = np.argsort(scores)[::-1][:3]
 
-print(f"🔍 Query: {query}")
-print(f"\n🎯 Top 3 Most Similar Results:")
+print(f" Query: {query}")
+print(f"\n Top 3 Most Similar Results:")
 print("-" * 50)
 for i, idx in enumerate(top_indices):
     print(f"{i+1}. Score: {scores[idx]:.3f}")
     print(f"   {knowledge_base[idx]}")
     print()
-    
