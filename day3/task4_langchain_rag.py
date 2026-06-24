@@ -3,7 +3,6 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_groq import ChatGroq
-from langchain.chains import RetrievalQA
 from dotenv import load_dotenv
 import os
 
@@ -36,17 +35,30 @@ llm = ChatGroq(
     model_name="llama-3.3-70b-versatile"
 )
 
-# Step 5: RAG Chain
-qa_chain = RetrievalQA.from_chain_type(
-    llm=llm,
-    chain_type="stuff",
-    retriever=retriever,
-    return_source_documents=True
-)
-
 print("✅ RAG Pipeline Ready!\n")
 print("=" * 50)
 
+def ask(question):
+    # Retrieve relevant chunks
+    docs = retriever.invoke(question)
+    
+    # Build context
+    context = "\n\n".join([doc.page_content for doc in docs])
+    
+    # Ask LLM
+    messages = [
+        {"role": "system", "content": f"""Answer using ONLY this context:
+{context}
+
+If answer not in context say 'Not found in document'."""},
+        {"role": "user", "content": question}
+    ]
+    
+    response = llm.invoke(messages)
+    sources = [f"Page {doc.metadata.get('page', '?')}" for doc in docs]
+    return response.content, sources
+
+# Ask questions
 questions = [
     "What is the main topic of this document?",
     "What problem does this paper solve?",
@@ -55,7 +67,7 @@ questions = [
 
 for q in questions:
     print(f"\n❓ {q}")
-    result = qa_chain.invoke({"query": q})
-    print(f"🤖 {result['result']}")
-    print(f"📌 Sources: {len(result['source_documents'])} chunks used")
+    answer, sources = ask(q)
+    print(f"🤖 {answer}")
+    print(f"📌 Sources: {', '.join(sources)}")
     print("-" * 50)
