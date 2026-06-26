@@ -8,26 +8,26 @@ import os
 
 load_dotenv()
 
-print("🔧 Building RAG Pipeline...")
+print(" Building RAG Pipeline...")
 
 # Step 1: Load PDF
 loader = PyPDFLoader("document.pdf")
 pages = loader.load()
-print(f"✅ Loaded {len(pages)} pages")
+print(f" Loaded {len(pages)} pages")
 
 # Step 2: Chunk
 splitter = RecursiveCharacterTextSplitter(
     chunk_size=500, chunk_overlap=50
 )
 chunks = splitter.split_documents(pages)
-print(f"✅ {len(chunks)} chunks created")
+print(f" Loaded {len(chunks)} chunks")
 
 # Step 3: Embed + Store
-print("🔢 Creating embeddings...")
+print(" Creating embeddings...")
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 vectorstore = Chroma.from_documents(chunks, embeddings)
 retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
-print("✅ Stored in ChromaDB")
+print(" Stored in ChromaDB")
 
 # Step 4: LLM
 llm = ChatGroq(
@@ -66,8 +66,8 @@ questions = [
 ]
 
 for q in questions:
-    print(f"\n❓ {q}")
+    print(f"\n {q}")
     answer, sources = ask(q)
-    print(f"🤖 {answer}")
-    print(f"📌 Sources: {', '.join(sources)}")
+    print(f" {answer}")
+    print(f" Sources: {', '.join(sources)}")
     print("-" * 50)
