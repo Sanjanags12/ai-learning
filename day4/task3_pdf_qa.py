@@ -7,13 +7,13 @@ import os
 load_dotenv()
 
 # Load existing ChromaDB
-print("📂 Loading ChromaDB...")
+print(" Loading ChromaDB...")
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 vectorstore = Chroma(
     persist_directory="./chroma_db",
     embedding_function=embeddings
 )
-print(f"✅ Loaded {vectorstore._collection.count()} chunks")
+print(f" Loaded {vectorstore._collection.count()} chunks")
 
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
@@ -50,7 +50,7 @@ Context:
     return answer, sources
 
 # Interactive Q&A
-print("\n📚 PDF Q&A Bot Ready!")
+print("\n PDF Q&A Bot Ready!")
 print("=" * 50)
 
 while True:
@@ -59,5 +59,5 @@ while True:
         break
 
     answer, sources = ask_pdf(question)
-    print(f"\n🤖 Answer: {answer}")
-    print(f"📌 Sources: {', '.join(sources)}")
+    print(f"\n Answer: {answer}")
+    print(f" Sources: {', '.join(sources)}")
